@@ -16,6 +16,7 @@ templ RootPage() {
 
         <link rel="stylesheet" href="/css/styles.css"/>
 
+        <script src="/js/script.js"></script>
         <script src="/js/lib/htmx.min.js"></script>
 
         <!-- Font Awesome -->
@@ -38,18 +39,21 @@ templ RootPage() {
                 <div id="overdue-list" class="todo-list">
                     <div class="todo-list-title">Overdue</div>
                     <div class="todo-list-items" hx-get="/overdue" hx-trigger="load" hx-swap="outerHTML"></div>
+                    <div class="new-item"></div>
                 </div>
                 <div id="today-list" class="todo-list">
                     <div class="todo-list-title">Today</div>
                     <div class="todo-list-items" hx-get="/today" hx-trigger="load" hx-swap="outerHTML"></div>
+                    <div class="new-item"></div>
                 </div>
                 <div id="upcoming-list" class="todo-list">
                     <div class="todo-list-title">Upcoming</div>
                     <div class="todo-list-items" hx-get="/upcoming" hx-trigger="load" hx-swap="outerHTML"></div>
+                    <div class="new-item"></div>
                 </div>
             </div>
 
-            <form id="create-item" hx-post="/new" hx-swap="none" hx-push-url="#">
+            <form id="create-item" hx-post="/new" hx-swap="none">
                 <div id="create-item-title">Create new Todo</div>
                 <div id="create-item-form-container">
                     <div class="create-item-form-column">
@@ -60,17 +64,17 @@ templ RootPage() {
                             <br/>
                             <label for="start">Start</label>
                             <br/>
-                            <input name="start" type="datetime-local"/>
+                            <input id="create-item-form-start" name="start" type="datetime-local"/>
                             <br/>
                             <label for="due">Due</label>
                             <br/>
-                            <input name="due" type="datetime-local"/>
+                            <input id="create-item-form-due" name="due" type="datetime-local"/>
                         </div>
                     </div>
                     <div class="create-item-form-column"></div>
                 </div>
                 <div id="create-item-button-container">
-                    <button id="create-item-save-button" class="button" type="submit" onclick="setTimeout(() => window.location = window.location.origin, 100)">Save</button>
+                    <button id="create-item-save-button" class="button" type="submit">Save</button>
                     <a id="create-item-close-button" class="button" href="#">Close</a>
                 </div>
             </form>
@@ -80,7 +84,7 @@ templ RootPage() {
 }
 
 templ TodoItem(item types.Todo) {
-    <div class="todo-item">
+    <div class="todo-item" data-start={ fmt.Sprintf("%d", item.Start) } data-due={ fmt.Sprintf("%d", item.Due) }>
         <input type="checkbox" name="completed" checked?={ item.Completed } hx-patch={ string(templ.URL(fmt.Sprintf("/set/%d", item.Id))) }/>
         <div class="todo-text">{ item.Text }</div>
         <div class="todo-item-actions">
@@ -90,8 +94,15 @@ templ TodoItem(item types.Todo) {
     </div>
 }
 
-templ TodoList(items []types.Todo) {
-    <div class="todo-list-items">
+templ OobTodoItem(targetSelector string, item types.Todo) {
+    <div hx-swap-oob={ fmt.Sprintf("%s:%s", "afterend", targetSelector) } >
+        @TodoItem(item)
+    </div>
+}
+
+templ TodoList(fillerText string, items []types.Todo) {
+    <div class="todo-list-items" data-item-count={ fmt.Sprintf("%d", len(items)) }>
+        <div class="filler-item">{ fillerText }</div>
         for _, item := range items {
             @TodoItem(item)
         }

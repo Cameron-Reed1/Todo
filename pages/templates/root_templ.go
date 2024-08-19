@@ -29,7 +29,7 @@ func RootPage() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype HTML><html lang=\"en-US\"><head><title>Todo</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"/css/styles.css\"><script src=\"/js/lib/htmx.min.js\"></script><!-- Font Awesome --><script src=\"https://kit.fontawesome.com/469cdddb31.js\" crossorigin=\"anonymous\"></script></head><body><nav><div id=\"nav-container\"><div id=\"nav-left\"><a id=\"new-button\" href=\"#create-item\">New</a></div><div id=\"nav-center\"></div><div id=\"nav-right\"></div></div></nav><div id=\"main-content\"><div id=\"lists\"><div id=\"overdue-list\" class=\"todo-list\"><div class=\"todo-list-title\">Overdue</div><div class=\"todo-list-items\" hx-get=\"/overdue\" hx-trigger=\"load\" hx-swap=\"outerHTML\"></div></div><div id=\"today-list\" class=\"todo-list\"><div class=\"todo-list-title\">Today</div><div class=\"todo-list-items\" hx-get=\"/today\" hx-trigger=\"load\" hx-swap=\"outerHTML\"></div></div><div id=\"upcoming-list\" class=\"todo-list\"><div class=\"todo-list-title\">Upcoming</div><div class=\"todo-list-items\" hx-get=\"/upcoming\" hx-trigger=\"load\" hx-swap=\"outerHTML\"></div></div></div><form id=\"create-item\" hx-post=\"/new\" hx-swap=\"none\" hx-push-url=\"#\"><div id=\"create-item-title\">Create new Todo</div><div id=\"create-item-form-container\"><div class=\"create-item-form-column\"><div class=\"create-item-form-column\"><label for=\"name\">Name</label><br><input type=\"text\" name=\"name\"><br><label for=\"start\">Start</label><br><input name=\"start\" type=\"datetime-local\"><br><label for=\"due\">Due</label><br><input name=\"due\" type=\"datetime-local\"></div></div><div class=\"create-item-form-column\"></div></div><div id=\"create-item-button-container\"><button id=\"create-item-save-button\" class=\"button\" type=\"submit\" onclick=\"setTimeout(() =&gt; window.location = window.location.origin, 100)\">Save</button> <a id=\"create-item-close-button\" class=\"button\" href=\"#\">Close</a></div></form></div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype HTML><html lang=\"en-US\"><head><title>Todo</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"/css/styles.css\"><script src=\"/js/script.js\"></script><script src=\"/js/lib/htmx.min.js\"></script><!-- Font Awesome --><script src=\"https://kit.fontawesome.com/469cdddb31.js\" crossorigin=\"anonymous\"></script></head><body><nav><div id=\"nav-container\"><div id=\"nav-left\"><a id=\"new-button\" href=\"#create-item\">New</a></div><div id=\"nav-center\"></div><div id=\"nav-right\"></div></div></nav><div id=\"main-content\"><div id=\"lists\"><div id=\"overdue-list\" class=\"todo-list\"><div class=\"todo-list-title\">Overdue</div><div class=\"todo-list-items\" hx-get=\"/overdue\" hx-trigger=\"load\" hx-swap=\"outerHTML\"></div><div class=\"new-item\"></div></div><div id=\"today-list\" class=\"todo-list\"><div class=\"todo-list-title\">Today</div><div class=\"todo-list-items\" hx-get=\"/today\" hx-trigger=\"load\" hx-swap=\"outerHTML\"></div><div class=\"new-item\"></div></div><div id=\"upcoming-list\" class=\"todo-list\"><div class=\"todo-list-title\">Upcoming</div><div class=\"todo-list-items\" hx-get=\"/upcoming\" hx-trigger=\"load\" hx-swap=\"outerHTML\"></div><div class=\"new-item\"></div></div></div><form id=\"create-item\" hx-post=\"/new\" hx-swap=\"none\"><div id=\"create-item-title\">Create new Todo</div><div id=\"create-item-form-container\"><div class=\"create-item-form-column\"><div class=\"create-item-form-column\"><label for=\"name\">Name</label><br><input type=\"text\" name=\"name\"><br><label for=\"start\">Start</label><br><input id=\"create-item-form-start\" name=\"start\" type=\"datetime-local\"><br><label for=\"due\">Due</label><br><input id=\"create-item-form-due\" name=\"due\" type=\"datetime-local\"></div></div><div class=\"create-item-form-column\"></div></div><div id=\"create-item-button-container\"><button id=\"create-item-save-button\" class=\"button\" type=\"submit\">Save</button> <a id=\"create-item-close-button\" class=\"button\" href=\"#\">Close</a></div></form></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -53,7 +53,33 @@ func TodoItem(item types.Todo) templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"todo-item\"><input type=\"checkbox\" name=\"completed\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"todo-item\" data-start=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var3 string
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", item.Start))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 87, Col: 69}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" data-due=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", item.Due))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 87, Col: 110}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><input type=\"checkbox\" name=\"completed\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -67,12 +93,12 @@ func TodoItem(item types.Todo) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/set/%d", item.Id))))
+		var templ_7745c5c3_Var5 string
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/set/%d", item.Id))))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 84, Col: 137}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 88, Col: 137}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -80,12 +106,12 @@ func TodoItem(item types.Todo) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(item.Text)
+		var templ_7745c5c3_Var6 string
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 85, Col: 42}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 89, Col: 42}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -93,12 +119,12 @@ func TodoItem(item types.Todo) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/delete/%d", item.Id))
+		var templ_7745c5c3_Var7 string
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/delete/%d", item.Id))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 88, Col: 101}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 92, Col: 101}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -113,7 +139,7 @@ func TodoItem(item types.Todo) templ.Component {
 	})
 }
 
-func TodoList(items []types.Todo) templ.Component {
+func OobTodoItem(targetSelector string, item types.Todo) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -121,12 +147,83 @@ func TodoList(items []types.Todo) templ.Component {
 			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var6 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var6 == nil {
-			templ_7745c5c3_Var6 = templ.NopComponent
+		templ_7745c5c3_Var8 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var8 == nil {
+			templ_7745c5c3_Var8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"todo-list-items\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div hx-swap-oob=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var9 string
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%s:%s", "afterend", targetSelector))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 98, Col: 71}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = TodoItem(item).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !templ_7745c5c3_IsBuffer {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func TodoList(fillerText string, items []types.Todo) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
+		if !templ_7745c5c3_IsBuffer {
+			templ_7745c5c3_Buffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var10 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var10 == nil {
+			templ_7745c5c3_Var10 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"todo-list-items\" data-item-count=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", len(items)))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 104, Col: 80}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div class=\"filler-item\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var12 string
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(fillerText)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 105, Col: 45}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

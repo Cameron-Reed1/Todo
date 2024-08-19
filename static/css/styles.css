@@ -212,3 +212,19 @@ nav {
     color: blue;
     border-color: blue;
 }
+
+.new-item, .filler-item {
+    display: none;
+}
+
+[data-item-count="0"]
+.filler-item {
+    display: block;
+    width: calc(100% - 12px);
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 40px;
+    margin: 6px;
+}

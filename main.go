@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+    db_path := flag.String("db", "./test.db", "Path to the sqlite3 database")
     bind_port := flag.Int("p", 8080, "Port to bind to")
     bind_addr := flag.String("a", "0.0.0.0", "Address to bind to")
     noFront := flag.Bool("no-frontend", false, "Disable the frontend endpoints")
@@ -34,7 +35,7 @@ func main() {
         addBackendEndpoints(mux)
     }
 
-    db.Open("test.db")
+    db.Open(*db_path)
     defer db.Close()
 
     addr := fmt.Sprintf("%s:%d", *bind_addr, *bind_port)
