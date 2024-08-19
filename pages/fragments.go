@@ -14,7 +14,7 @@ func OverdueFragment(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    templates.TodoList("No overdue items", items).Render(r.Context(), w)
+    templates.TodoList("Nothing to do in the past", items).Render(r.Context(), w)
 }
 
 func TodayFragment(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func TodayFragment(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    templates.TodoList("No items for today", items).Render(r.Context(), w)
+    templates.TodoList("Nothing to do today", items).Render(r.Context(), w)
 }
 
 func UpcomingFragment(w http.ResponseWriter, r *http.Request) {
@@ -34,5 +34,5 @@ func UpcomingFragment(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    templates.TodoList("No upcoming items", items).Render(r.Context(), w)
+    templates.TodoList("Nothing to do in the future", items).Render(r.Context(), w)
 }
