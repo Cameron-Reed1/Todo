@@ -197,6 +197,11 @@ func GetUpcomingTodos() ([]types.Todo, error) {
     return todos, nil
 }
 
+func UpdateTodo(newValues types.Todo) error {
+    _, err := db.Exec("UPDATE items SET start=?, due=?, text=? WHERE id=?", toNullInt64(newValues.Start), toNullInt64(newValues.Due), newValues.Text, newValues.Id)
+    return err;
+}
+
 func SetCompleted(id int, completed bool) error {
     _, err := db.Exec("UPDATE items SET completed=? WHERE id=?", completed, id)
     return err

@@ -61,6 +61,7 @@ func addFrontendEndpoints(mux *http.ServeMux) {
     mux.HandleFunc("/upcoming", pages.UpcomingFragment)
     mux.HandleFunc("DELETE /delete/{id}", pages.DeleteItem)
     mux.HandleFunc("PATCH /set/{id}", pages.SetItemCompleted)
+    mux.HandleFunc("PUT /update", pages.UpdateItem)
     mux.HandleFunc("POST /new", pages.CreateItem)
 
     fileServer := http.FileServer(http.Dir("./static"))

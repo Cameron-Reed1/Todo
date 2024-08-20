@@ -54,28 +54,50 @@ templ RootPage() {
             </div>
 
             <form id="create-item" hx-post="/new" hx-swap="none">
-                <div id="create-item-title">Create new Todo</div>
-                <div id="create-item-form-container">
-                    <div class="create-item-form-column">
-                        <div class="create-item-form-column">
-                            <label for="name">Name</label>
-                            <br/>
-                            <input type="text" name="name"/>
-                            <br/>
-                            <label for="start">Start</label>
-                            <br/>
-                            <input id="create-item-form-start" name="start" type="datetime-local"/>
-                            <br/>
-                            <label for="due">Due</label>
-                            <br/>
-                            <input id="create-item-form-due" name="due" type="datetime-local"/>
-                        </div>
+                <div class="form-title">Create new Todo</div>
+                <div class="form-container">
+                    <div class="form-column">
+                        <label for="name">Name</label>
+                        <br/>
+                        <input id="create-item-name" type="text" name="name"/>
+                        <br/>
+                        <label for="start">Start</label>
+                        <br/>
+                        <input id="create-item-start" name="start" type="datetime-local"/>
+                        <br/>
+                        <label for="due">Due</label>
+                        <br/>
+                        <input id="create-item-due" name="due" type="datetime-local"/>
                     </div>
-                    <div class="create-item-form-column"></div>
+                    <div class="form-column"></div>
                 </div>
-                <div id="create-item-button-container">
-                    <button id="create-item-save-button" class="button" type="submit">Save</button>
-                    <a id="create-item-close-button" class="button" href="#">Close</a>
+                <div class="form-button-container">
+                    <button id="create-save" class="form-save-button button" type="submit">Save</button>
+                    <a class="form-close-button button" href="#">Close</a>
+                </div>
+            </form>
+
+            <form id="edit-item" data-id="" hx-put="/update" hx-swap="outerHTML">
+                <div class="form-title">Edit Todo</div>
+                <div class="form-container">
+                    <div class="form-column">
+                        <label for="name">Name</label>
+                        <br/>
+                        <input id="edit-item-name" type="text" name="name"/>
+                        <br/>
+                        <label for="start">Start</label>
+                        <br/>
+                        <input id="edit-item-start" name="start" type="datetime-local"/>
+                        <br/>
+                        <label for="due">Due</label>
+                        <br/>
+                        <input id="edit-item-due" name="due" type="datetime-local"/>
+                    </div>
+                    <div class="form-column"></div>
+                </div>
+                <div class="form-button-container">
+                    <button id="edit-save" class="form-save-button button" type="submit">Save</button>
+                    <a class="form-close-button button" href="#">Close</a>
                 </div>
             </form>
         </div>
@@ -83,12 +105,16 @@ templ RootPage() {
     </html>
 }
 
+script edit(item_id string) {
+    edit(item_id)
+}
+
 templ TodoItem(item types.Todo) {
-    <div class="todo-item" data-start={ fmt.Sprintf("%d", item.Start) } data-due={ fmt.Sprintf("%d", item.Due) }>
+    <div id={ fmt.Sprintf("item-%d", item.Id) } class="todo-item" data-idnum={ fmt.Sprintf("%d", item.Id) } data-start={ fmt.Sprintf("%d", item.Start) } data-due={ fmt.Sprintf("%d", item.Due) }>
         <input type="checkbox" name="completed" checked?={ item.Completed } hx-patch={ string(templ.URL(fmt.Sprintf("/set/%d", item.Id))) }/>
         <div class="todo-text">{ item.Text }</div>
         <div class="todo-item-actions">
-            <i class="action-edit fa-solid fa-pencil"></i>
+            <i class="action-edit fa-solid fa-pencil" onclick="edit(this.parentElement.parentElement.id)"></i>
             <i class="action-delete fa-solid fa-trash" hx-delete={ fmt.Sprintf("/delete/%d", item.Id) } hx-target="closest .todo-item" hx-swap="outerHTML"></i>
         </div>
     </div>

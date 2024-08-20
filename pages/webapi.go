@@ -99,3 +99,61 @@ func SetItemCompleted(w http.ResponseWriter, r *http.Request) {
 
     w.Write([]byte{})
 }
+
+func UpdateItem(w http.ResponseWriter, r *http.Request) {
+    var todo types.Todo
+    var err error
+
+    idStr := r.FormValue("id")
+    todo.Text = r.FormValue("name")
+    start := r.FormValue("start")
+    due := r.FormValue("due")
+
+    todo.Id, err = strconv.ParseInt(idStr, 10, 64)
+
+    if idStr == "" || err != nil {
+        w.WriteHeader(http.StatusBadRequest)
+        return
+    }
+
+    if start != "" {
+        todo.Start, err = strconv.ParseInt(start, 10, 64)
+        if err != nil {
+            fmt.Printf("Bad start time: %s\n", start)
+            w.WriteHeader(http.StatusBadRequest)
+            return
+        }
+    } else {
+        todo.Start = 0
+    }
+
+    if due != "" {
+        todo.Due, err = strconv.ParseInt(due, 10, 64)
+        if err != nil {
+            fmt.Printf("Bad due time: %s\n", due)
+            w.WriteHeader(http.StatusBadRequest)
+            return
+        }
+    } else {
+        todo.Due = 0
+    }
+
+    fmt.Printf("New values:\n(%d) %s: %d - %d\n\n", todo.Id, todo.Text, todo.Start, todo.Due)
+
+    err = db.UpdateTodo(todo)
+    if err != nil {
+        w.WriteHeader(http.StatusInternalServerError)
+        return
+    }
+
+    now := time.Now().Unix()
+    var targetSelector = "#today-list > .new-item"
+    if todo.Due != 0 && todo.Due < now {
+        targetSelector = "#overdue-list > .new-item"
+    }
+    if todo.Start > now {
+        targetSelector = "#upcoming-list > .new-item"
+    }
+
+    templates.OobTodoItem(targetSelector, todo).Render(r.Context(), w)
+}

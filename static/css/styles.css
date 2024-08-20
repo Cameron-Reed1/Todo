@@ -133,7 +133,7 @@ nav {
     cursor: pointer;
 }
 
-#create-item {
+form {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -152,35 +152,35 @@ nav {
     padding: 30px;
 }
 
-#create-item:target {
+form:target {
 	top: 48%;
     visibility: visible;
     opacity: 1;
     transition: visibility 0s, top .5s, opacity .5s linear;
 }
 
-#create-item-title {
+.form-title {
     font-size: 2em;
     font-weight: bold;
     margin-top: -10px;
 }
 
-#create-item-form-container {
+.form-container {
     display: flex;
     flex: 1;
     flex-direction: row;
 }
 
-.create-item-form-column {
+.form-column {
     flex: 1;
     padding: 20px;
 }
 
-.create-item-form-column input {
+.form-column input {
     margin-bottom: 20px;
 }
 
-#create-item-button-container {
+.form-button-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -189,7 +189,7 @@ nav {
     gap: 20px;
 }
 
-.button {
+form .button {
     padding: 10px 20px;
     text-decoration: none;
     border: 2px solid;
@@ -200,15 +200,15 @@ nav {
     cursor: pointer;
 }
 
-.button:hover {
+form .button:hover {
     background-color: #ddd;
 }
 
-#create-item-close-button {
+.form-close-button {
     color: initial;
 }
 
-#create-item-save-button {
+.form-save-button {
     color: blue;
     border-color: blue;
 }
