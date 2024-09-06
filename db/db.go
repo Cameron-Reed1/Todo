@@ -102,7 +102,7 @@ func GetAllTodos() ([]types.Todo, error) {
 func GetOverdueTodos() ([]types.Todo, error) {
     var todos []types.Todo
 
-    rows, err := db.Query("SELECT * FROM items WHERE due < ? AND due IS NOT NULL ORDER BY due", time.Now().Unix())
+    rows, err := db.Query("SELECT * FROM items WHERE due < ? AND due IS NOT NULL ORDER BY completed, due", time.Now().Unix())
     if err != nil {
         return nil, err
     }
@@ -136,7 +136,7 @@ func GetTodayTodos() ([]types.Todo, error) {
     now := time.Now()
     year, month, day := now.Date()
     today := time.Date(year, month, day, 0, 0, 0, 0, time.Local)
-    rows, err := db.Query("SELECT * FROM items WHERE (start <= ? OR start IS NULL) AND (due >= ? OR due IS NULL) ORDER BY due NULLS LAST", today.Unix(), now.Unix())
+    rows, err := db.Query("SELECT * FROM items WHERE (start <= ? OR start IS NULL) AND (due >= ? OR due IS NULL) ORDER BY completed, due NULLS LAST", today.Unix(), now.Unix())
     if err != nil {
         return nil, err
     }
@@ -169,7 +169,7 @@ func GetUpcomingTodos() ([]types.Todo, error) {
 
     year, month, day := time.Now().Date()
     today := time.Date(year, month, day, 0, 0, 0, 0, time.Local)
-    rows, err := db.Query("SELECT * FROM items WHERE start > ? ORDER BY start", today.Unix())
+    rows, err := db.Query("SELECT * FROM items WHERE start > ? ORDER BY completed, start", today.Unix())
     if err != nil {
         return nil, err
     }

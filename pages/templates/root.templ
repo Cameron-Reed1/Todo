@@ -8,7 +8,7 @@ import (
 
 templ RootPage() {
     <!Doctype HTML>
-    <html lang="en-US">
+    <html lang="en-US" data-show-completed="false">
     <head>
         <title>Todo</title>
 
@@ -30,7 +30,10 @@ templ RootPage() {
                     <a id="new-button" href="#create-item">New</a>
                 </div>
                 <div id="nav-center"></div>
-                <div id="nav-right"></div>
+                <div id="nav-right">
+                    <label for="show-completed">Show completed</label>
+                    <input id="show-completed" type="checkbox" name="show-completed"/>
+                </div>
             </div>
         </nav>
 

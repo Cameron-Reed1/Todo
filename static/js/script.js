@@ -66,6 +66,11 @@ function on_load() {
         overdue_items.setAttribute("data-item-count", parseInt(overdue_items.getAttribute("data-item-count")) + 1);
     });
 
+    let checkbox = document.getElementById("show-completed");
+    checkbox.addEventListener("change", function(evt) {
+        document.documentElement.setAttribute("data-show-completed", checkbox.checked);
+    });
+
     document.querySelector("#today-list > .new-item").addEventListener("htmx:oobBeforeSwap", function(evt) {
         let today_items = document.querySelector("#today-list > .todo-list-items");
         let due = parseInt(evt.detail.fragment.firstElementChild.getAttribute("data-due"));

@@ -13,6 +13,7 @@ nav {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 #new-button {
@@ -105,6 +106,11 @@ nav {
     align-items: center;
     justify-content: start;
     gap: 10px;
+}
+
+[data-show-completed="false"]
+.todo-item:has(input[type="checkbox"]:checked) {
+    display: none;
 }
 
 .todo-text {

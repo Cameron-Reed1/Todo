@@ -15,6 +15,7 @@ func main() {
     db_path := flag.String("db", "./test.db", "Path to the sqlite3 database")
     bind_port := flag.Int("p", 8080, "Port to bind to")
     bind_addr := flag.String("a", "0.0.0.0", "Address to bind to")
+    static_dir := flag.String("static", "./static", "Path to static files")
     noFront := flag.Bool("no-frontend", false, "Disable the frontend endpoints")
     a := false; noBack := &a // flag.Bool("no-backend", false, "Disable the backend endpoints")
 
@@ -28,7 +29,7 @@ func main() {
     }
 
     if !*noFront {
-        addFrontendEndpoints(mux)
+        addFrontendEndpoints(mux, *static_dir)
     }
 
     if !*noBack {
@@ -50,7 +51,7 @@ func main() {
     }
 }
 
-func addFrontendEndpoints(mux *http.ServeMux) {
+func addFrontendEndpoints(mux *http.ServeMux, static_path string) {
     fmt.Println("Frontend enabled")
 
     mux.HandleFunc("/", Error404)
@@ -64,7 +65,7 @@ func addFrontendEndpoints(mux *http.ServeMux) {
     mux.HandleFunc("PUT /update", pages.UpdateItem)
     mux.HandleFunc("POST /new", pages.CreateItem)
 
-    fileServer := http.FileServer(http.Dir("./static"))
+    fileServer := http.FileServer(http.Dir(static_path))
     mux.Handle("/css/", fileServer)
     mux.Handle("/js/", fileServer)
 }
