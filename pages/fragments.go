@@ -3,12 +3,18 @@ package pages
 import (
 	"net/http"
 
-	"github.com/Cameron-Reed1/todo-web/db"
 	"github.com/Cameron-Reed1/todo-web/pages/templates"
 )
 
 func OverdueFragment(w http.ResponseWriter, r *http.Request) {
-    items, err := db.GetOverdueTodos()
+    user_db, err := validateSessionAndGetUserDB(r)
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        return
+    }
+    defer user_db.Close()
+
+    items, err := user_db.GetOverdueTodos()
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         return
@@ -18,7 +24,14 @@ func OverdueFragment(w http.ResponseWriter, r *http.Request) {
 }
 
 func TodayFragment(w http.ResponseWriter, r *http.Request) {
-    items, err := db.GetTodayTodos()
+    user_db, err := validateSessionAndGetUserDB(r)
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        return
+    }
+    defer user_db.Close()
+
+    items, err := user_db.GetTodayTodos()
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         return
@@ -28,7 +41,14 @@ func TodayFragment(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpcomingFragment(w http.ResponseWriter, r *http.Request) {
-    items, err := db.GetUpcomingTodos()
+    user_db, err := validateSessionAndGetUserDB(r)
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        return
+    }
+    defer user_db.Close()
+
+    items, err := user_db.GetUpcomingTodos()
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         return

@@ -2,16 +2,18 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
 
-	"github.com/Cameron-Reed1/todo-web/db"
+	// "github.com/Cameron-Reed1/todo-web/db"
 	"github.com/Cameron-Reed1/todo-web/types"
 )
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
-    todos, err := db.GetAllTodos()
+    // todos, err := db.GetAllTodos()
+    todos, err := []types.Todo(nil), errors.New("Broken right now :/")
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         w.Write([]byte("{\"error\":\"Failed to get items\"}"))
@@ -44,7 +46,8 @@ func GetTodo(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    todo, err := db.GetTodo(id)
+    // todo, err := db.GetTodo(id)
+    todo, err := types.Todo{Id: int64(id)}, errors.New("Broken right now :/")
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         w.Write([]byte("{\"error\":\"No item for id\"}"))
@@ -79,7 +82,8 @@ func AddTodo(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    err = db.AddTodo(&todo)
+    // err = db.AddTodo(&todo)
+    err = errors.New("Broken right now :/")
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         w.Write([]byte("{\"error\":\"Failed to add item\"}"))

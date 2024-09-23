@@ -1,4 +1,12 @@
 function on_load() {
+    let logout_button = document.getElementById("profile-logout");
+
+    logout_button.addEventListener("htmx:afterRequest", function(evt) {
+        if (evt.detail.successful) {
+            window.location.reload();
+        }
+    });
+
     let create_start_input = document.getElementById("create-item-start");
     let create_due_input = document.getElementById("create-item-due");
 

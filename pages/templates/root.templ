@@ -6,7 +6,7 @@ import (
     "github.com/Cameron-Reed1/todo-web/types"
 )
 
-templ RootPage() {
+templ RootPage(username string) {
     <!Doctype HTML>
     <html lang="en-US" data-show-completed="false">
     <head>
@@ -26,13 +26,25 @@ templ RootPage() {
     <body>
         <nav>
             <div id="nav-container">
-                <div id="nav-left">
-                    <a id="new-button" href="#create-item">New</a>
+                <div id="nav-left" class="nav-section">
+                    <a id="new-button" class="focus-highlight" href="#create-item">New</a>
                 </div>
-                <div id="nav-center"></div>
-                <div id="nav-right">
-                    <label for="show-completed">Show completed</label>
-                    <input id="show-completed" type="checkbox" name="show-completed"/>
+                <div id="nav-center" class="nav-section"></div>
+                <div id="nav-right" class="nav-section">
+                    <div>
+                        <label for="show-completed">Show completed</label>
+                        <input id="show-completed" type="checkbox" name="show-completed"/>
+                    </div>
+                    <div id="profile">
+                        <div id="profile-icon" class="focus-highlight">
+                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                        <div id="profile-dropdown">
+                            <div id="profile-name" class="focus-highlight">{ username }</div>
+                            <div id="profile-logout" class="focus-highlight" hx-post="/logout" hx-swap="none">Log out</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>

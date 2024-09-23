@@ -5,6 +5,7 @@
 
 nav {
     height: 48px;
+    line-height: 48px;
     border-bottom: 2px solid black;
 }
 
@@ -16,12 +17,17 @@ nav {
     align-items: center;
 }
 
+.nav-section {
+    padding: 0 13px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
 #new-button {
-    width: 100px;
     text-transform: uppercase;
     cursor: pointer;
     text-align: center;
-    line-height: 48px;
     font-size: 2em;
     font-weight: 600;
     font-family: sans-serif;
@@ -30,8 +36,42 @@ nav {
     display: inline-block;
 }
 
-#new-button:hover {
+.focus-highlight:hover {
     background-color: #ddd;
+}
+
+#profile {
+    position: relative;
+}
+
+#profile-icon {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#profile-dropdown {
+    position: absolute;
+    top: 48px;
+    right: 0px;
+    height: 0;
+    width: 100px;
+    z-index: 9999;
+    border: 0px solid black;
+    transition: height .5s, border-width 0s .5s;
+    overflow: hidden;
+    background-color: white;
+}
+
+#profile:hover > #profile-dropdown {
+    height: 64px;
+    border-width: 2px;
+    transition: height .5s, border-width 0s;
+}
+
+#profile-dropdown > div {
+    cursor: pointer;
+    line-height: 32px;
+    padding: 0 4px;
 }
 
 #main-content {

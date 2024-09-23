@@ -12,32 +12,26 @@ import (
 )
 
 func main() {
-    db_path := flag.String("db", "./test.db", "Path to the sqlite3 database")
+    db_path := flag.String("db", "./main.db", "Path to the main sqlite3 database")
+    user_db_dir := flag.String("user-dbs", "./user_dbs", "Path to the directory containing per-user sqlite3 databases")
     bind_port := flag.Int("p", 8080, "Port to bind to")
     bind_addr := flag.String("a", "0.0.0.0", "Address to bind to")
     static_dir := flag.String("static", "./static", "Path to static files")
     noFront := flag.Bool("no-frontend", false, "Disable the frontend endpoints")
-    a := false; noBack := &a // flag.Bool("no-backend", false, "Disable the backend endpoints")
+    // a := false; noBack := &a // flag.Bool("no-backend", false, "Disable the backend endpoints") // This didn't really make sense
 
     flag.Parse()
 
     mux := http.NewServeMux()
 
-    if *noFront && *noBack {
-        fmt.Println("What do you want me to do?")
-        return
-    }
-
     if !*noFront {
         addFrontendEndpoints(mux, *static_dir)
     }
+    addBackendEndpoints(mux)
 
-    if !*noBack {
-        addBackendEndpoints(mux)
-    }
-
-    db.Open(*db_path)
-    defer db.Close()
+    db.SetUserDBDir(*user_db_dir)
+    db.OpenMainDB(*db_path)
+    defer db.CloseMainDB()
 
     addr := fmt.Sprintf("%s:%d", *bind_addr, *bind_port)
     server := http.Server{ Addr: addr, Handler: mux }
@@ -60,6 +54,9 @@ func addFrontendEndpoints(mux *http.ServeMux, static_path string) {
     mux.HandleFunc("/overdue", pages.OverdueFragment)
     mux.HandleFunc("/today", pages.TodayFragment)
     mux.HandleFunc("/upcoming", pages.UpcomingFragment)
+    mux.HandleFunc("/login", pages.Login)
+    mux.HandleFunc("/create-account", pages.CreateAccount)
+    mux.HandleFunc("POST /logout", pages.Logout)
     mux.HandleFunc("DELETE /delete/{id}", pages.DeleteItem)
     mux.HandleFunc("PATCH /set/{id}", pages.SetItemCompleted)
     mux.HandleFunc("PUT /update", pages.UpdateItem)

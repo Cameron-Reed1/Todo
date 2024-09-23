@@ -6,20 +6,25 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Cameron-Reed1/todo-web/db"
 	"github.com/Cameron-Reed1/todo-web/pages/templates"
 	"github.com/Cameron-Reed1/todo-web/types"
 )
 
 func CreateItem(w http.ResponseWriter, r *http.Request) {
+    user_db, err := validateSessionAndGetUserDB(r)
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        return
+    }
+    defer user_db.Close()
+
     var todo types.Todo
-    var err error
 
     todo.Text = r.FormValue("name")
     start := r.FormValue("start")
     due := r.FormValue("due")
 
-    fmt.Printf("Create item request: %s: %s - %s\n", todo.Text, start, due)
+    // fmt.Printf("Create item request: %s: %s - %s\n", todo.Text, start, due)
 
     if start != "" {
         todo.Start, err = strconv.ParseInt(start, 10, 64)
@@ -43,9 +48,9 @@ func CreateItem(w http.ResponseWriter, r *http.Request) {
         todo.Due = 0
     }
 
-    fmt.Printf("New item: %s: %d - %d\n", todo.Text, todo.Start, todo.Due)
+    // fmt.Printf("New item: %s: %d - %d\n", todo.Text, todo.Start, todo.Due)
 
-    err = db.AddTodo(&todo)
+    err = user_db.AddTodo(&todo)
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         return
@@ -64,6 +69,13 @@ func CreateItem(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteItem(w http.ResponseWriter, r *http.Request) {
+    user_db, err := validateSessionAndGetUserDB(r)
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        return
+    }
+    defer user_db.Close()
+
     idStr := r.PathValue("id")
     id, err := strconv.Atoi(idStr)
 
@@ -72,7 +84,7 @@ func DeleteItem(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    err = db.DeleteTodo(id)
+    err = user_db.DeleteTodo(id)
 
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
@@ -83,6 +95,13 @@ func DeleteItem(w http.ResponseWriter, r *http.Request) {
 }
 
 func SetItemCompleted(w http.ResponseWriter, r *http.Request) {
+    user_db, err := validateSessionAndGetUserDB(r)
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        return
+    }
+    defer user_db.Close()
+
     idStr := r.PathValue("id")
     id, err := strconv.Atoi(idStr)
 
@@ -92,7 +111,7 @@ func SetItemCompleted(w http.ResponseWriter, r *http.Request) {
     }
 
     completed := r.FormValue("completed") == "on"
-    if err = db.SetCompleted(id, completed); err != nil {
+    if err = user_db.SetCompleted(id, completed); err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         return
     }
@@ -101,8 +120,14 @@ func SetItemCompleted(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateItem(w http.ResponseWriter, r *http.Request) {
+    user_db, err := validateSessionAndGetUserDB(r)
+    if err != nil {
+        w.WriteHeader(http.StatusUnauthorized)
+        return
+    }
+    defer user_db.Close()
+
     var todo types.Todo
-    var err error
 
     idStr := r.FormValue("id")
     todo.Text = r.FormValue("name")
@@ -138,9 +163,9 @@ func UpdateItem(w http.ResponseWriter, r *http.Request) {
         todo.Due = 0
     }
 
-    fmt.Printf("New values:\n(%d) %s: %d - %d\n\n", todo.Id, todo.Text, todo.Start, todo.Due)
+    // fmt.Printf("New values:\n(%d) %s: %d - %d\n\n", todo.Id, todo.Text, todo.Start, todo.Due)
 
-    err = db.UpdateTodo(todo)
+    err = user_db.UpdateTodo(todo)
     if err != nil {
         w.WriteHeader(http.StatusInternalServerError)
         return

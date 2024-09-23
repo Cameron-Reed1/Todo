@@ -1,0 +1,70 @@
+package templates
+
+templ loginSkeleton() {
+    <!Doctype HTML>
+    <html lang="en-US">
+    <head>
+        <title>Todo login</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <link rel="stylesheet" href="/css/login.css"/>
+
+        <script src="/js/login.js"></script>
+        <script src="/js/lib/htmx.min.js"></script>
+    </head>
+
+    <body>
+        { children... }
+    </body>
+    </html>
+}
+
+templ LoginPage() {
+    @loginSkeleton() {
+        <form id="login-box" hx-post="/login" hx-swap="none">
+            <h1>Login</h1>
+
+            <div>
+                <label for="username">Username</label><br/>
+                <input id="username" name="username" type="text" required/>
+
+                <div style="margin: 20px"></div>
+
+                <label for="password">Password</label><br/>
+                <input id="password" name="password" type="password" required/>
+
+                <label for="stay-logged-in">Keep me logged in</label>
+                <input id="stay-logged-in" name="stay-logged-in" type="checkbox"/><br/>
+
+                <button type="submit">Log in</button>
+                <a href="/create-account">Create Account</a>
+            </div>
+        </form>
+    }
+}
+
+templ CreateAccountBox() {
+    @loginSkeleton() {
+        <form id="login-box" hx-post="/create-account">
+            <h1>Create Account</h1>
+
+            <div>
+                <label for="username">Username</label><br/>
+                <input id="username" name="username" type="text" required/>
+
+                <div style="margin: 20px"></div>
+
+                <label for="password">Password</label><br/>
+                <input id="password" name="password" type="password" required/>
+
+                <div style="margin: 20px"></div>
+
+                <label for="confirm-password">Confirm Password</label><br/>
+                <input id="confirm-password" name="confirm-password" type="password" required/>
+
+                <button type="submit">Create account</button>
+            </div>
+        </form>
+    }
+}

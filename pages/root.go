@@ -7,5 +7,12 @@ import (
 )
 
 func RootPage(w http.ResponseWriter, r *http.Request) {
-    templates.RootPage().Render(r.Context(), w)
+    username, err := validateSessionAndGetUsername(r)
+    if err != nil {
+        w.Header().Add("Location", "/login")
+        w.WriteHeader(http.StatusFound)
+        return
+    }
+
+    templates.RootPage(username).Render(r.Context(), w)
 }
