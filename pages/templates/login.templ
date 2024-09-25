@@ -23,22 +23,17 @@ templ loginSkeleton() {
 templ LoginPage() {
     @loginSkeleton() {
         <form id="login-box" hx-post="/login" hx-swap="none">
-            <h1>Login</h1>
+            <h1>Welcome</h1>
 
-            <div>
-                <label for="username">Username</label><br/>
-                <input id="username" name="username" type="text" required/>
-
-                <div style="margin: 20px"></div>
-
-                <label for="password">Password</label><br/>
-                <input id="password" name="password" type="password" required/>
-
-                <label for="stay-logged-in">Keep me logged in</label>
-                <input id="stay-logged-in" name="stay-logged-in" type="checkbox"/><br/>
-
-                <button type="submit">Log in</button>
-                <a href="/create-account">Create Account</a>
+            <div class="credentials-wrapper">
+                <input id="username" name="username" type="text" class="credentials" placeholder="Username" required/>
+                <input id="password" name="password" type="password" class="credentials" placeholder="Password" required/>
+                <div>
+                    <label for="stay-logged-in">Keep me logged in</label>
+                    <input id="stay-logged-in" name="stay-logged-in" type="checkbox"/>
+                </div>
+                <button type="submit" class="login-btn">Log in</button>
+                <a href="/create-account">No account? Create one!</a>
             </div>
         </form>
     }
@@ -49,21 +44,14 @@ templ CreateAccountBox() {
         <form id="login-box" hx-post="/create-account">
             <h1>Create Account</h1>
 
-            <div>
-                <label for="username">Username</label><br/>
-                <input id="username" name="username" type="text" required/>
+            <div class="credentials-wrapper">
+                <input id="username" name="username" type="text" class="credentials" placeholder="Password"  required/>
 
-                <div style="margin: 20px"></div>
+                <input id="password" name="password" type="password" class="credentials" placeholder="Password"  required/>
 
-                <label for="password">Password</label><br/>
-                <input id="password" name="password" type="password" required/>
+                <input id="confirm-password" name="confirm-password" type="password" class="credentials" placeholder="Re-Type Password"  required/>
 
-                <div style="margin: 20px"></div>
-
-                <label for="confirm-password">Confirm Password</label><br/>
-                <input id="confirm-password" name="confirm-password" type="password" required/>
-
-                <button type="submit">Create account</button>
+                <button type="submit" class="login-btn">Create account</button>
             </div>
         </form>
     }
