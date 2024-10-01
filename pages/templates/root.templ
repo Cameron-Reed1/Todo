@@ -6,7 +6,7 @@ import (
     "github.com/Cameron-Reed1/todo-web/types"
 )
 
-templ RootPage(username string) {
+templ RootPage(username string, basic_css bool) {
     <!Doctype HTML>
     <html lang="en-US" data-show-completed="false">
     <head>
@@ -14,7 +14,11 @@ templ RootPage(username string) {
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <link rel="stylesheet" href="/css/styles.css"/>
+        if basic_css {
+            <link rel="stylesheet" href="/css/basic.css"/>
+        } else {
+            <link rel="stylesheet" href="/css/styles.css"/>
+        }
 
         <script src="/js/script.js"></script>
         <script src="/js/lib/htmx.min.js"></script>

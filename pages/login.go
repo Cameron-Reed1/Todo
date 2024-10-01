@@ -14,7 +14,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
             w.Header().Add("Location", "/")
             w.WriteHeader(http.StatusSeeOther)
         } else {
-            templates.LoginPage().Render(r.Context(), w)
+            templates.LoginPage(r.URL.Query().Has("basic")).Render(r.Context(), w)
         }
         return
     }
@@ -53,7 +53,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
             w.Header().Add("Location", "/")
             w.WriteHeader(http.StatusSeeOther)
         } else {
-            templates.CreateAccountBox().Render(r.Context(), w)
+            templates.CreateAccountBox(false).Render(r.Context(), w)
         }
         return
     }

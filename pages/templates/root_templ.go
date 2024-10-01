@@ -14,7 +14,7 @@ import (
 	"github.com/Cameron-Reed1/todo-web/types"
 )
 
-func RootPage(username string) templ.Component {
+func RootPage(username string, basic_css bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -32,14 +32,29 @@ func RootPage(username string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype HTML><html lang=\"en-US\" data-show-completed=\"false\"><head><title>Todo</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"/css/styles.css\"><script src=\"/js/script.js\"></script><script src=\"/js/lib/htmx.min.js\"></script><!-- Font Awesome --><script src=\"https://kit.fontawesome.com/469cdddb31.js\" crossorigin=\"anonymous\"></script></head><body><nav><div id=\"nav-container\"><div id=\"nav-left\" class=\"nav-section\"><a id=\"new-button\" class=\"focus-highlight\" href=\"#create-item\">New</a></div><div id=\"nav-center\" class=\"nav-section\"></div><div id=\"nav-right\" class=\"nav-section\"><div><label for=\"show-completed\">Show completed</label> <input id=\"show-completed\" type=\"checkbox\" name=\"show-completed\"></div><div id=\"profile\"><div id=\"profile-icon\" class=\"focus-highlight\"><i class=\"fa-solid fa-user\"></i> <i class=\"fa-solid fa-caret-down\"></i></div><div id=\"profile-dropdown\"><div id=\"profile-name\" class=\"focus-highlight\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype HTML><html lang=\"en-US\" data-show-completed=\"false\"><head><title>Todo</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if basic_css {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/css/basic.css\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/css/styles.css\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"/js/script.js\"></script><script src=\"/js/lib/htmx.min.js\"></script><!-- Font Awesome --><script src=\"https://kit.fontawesome.com/469cdddb31.js\" crossorigin=\"anonymous\"></script></head><body><nav><div id=\"nav-container\"><div id=\"nav-left\" class=\"nav-section\"><a id=\"new-button\" class=\"focus-highlight\" href=\"#create-item\">New</a></div><div id=\"nav-center\" class=\"nav-section\"></div><div id=\"nav-right\" class=\"nav-section\"><div><label for=\"show-completed\">Show completed</label> <input id=\"show-completed\" type=\"checkbox\" name=\"show-completed\"></div><div id=\"profile\"><div id=\"profile-icon\" class=\"focus-highlight\"><i class=\"fa-solid fa-user\"></i> <i class=\"fa-solid fa-caret-down\"></i></div><div id=\"profile-dropdown\"><div id=\"profile-name\" class=\"focus-highlight\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(username)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 44, Col: 85}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 48, Col: 85}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -88,7 +103,7 @@ func TodoItem(item types.Todo) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("item-%d", item.Id))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 128, Col: 45}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 132, Col: 45}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -101,7 +116,7 @@ func TodoItem(item types.Todo) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", item.Id))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 128, Col: 105}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 132, Col: 105}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -114,7 +129,7 @@ func TodoItem(item types.Todo) templ.Component {
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", item.Start))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 128, Col: 150}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 132, Col: 150}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
@@ -127,7 +142,7 @@ func TodoItem(item types.Todo) templ.Component {
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", item.Due))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 128, Col: 191}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 132, Col: 191}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
@@ -150,7 +165,7 @@ func TodoItem(item types.Todo) templ.Component {
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/set/%d", item.Id))))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 129, Col: 137}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 133, Col: 137}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
@@ -163,7 +178,7 @@ func TodoItem(item types.Todo) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(item.Text)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 130, Col: 42}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 134, Col: 42}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -176,7 +191,7 @@ func TodoItem(item types.Todo) templ.Component {
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/delete/%d", item.Id))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 133, Col: 101}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 137, Col: 101}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
@@ -215,7 +230,7 @@ func OobTodoItem(targetSelector string, item types.Todo) templ.Component {
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%s:%s", "afterend", targetSelector))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 139, Col: 71}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 143, Col: 71}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -262,7 +277,7 @@ func TodoList(fillerText string, items []types.Todo) templ.Component {
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", len(items)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 145, Col: 80}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 149, Col: 80}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -275,7 +290,7 @@ func TodoList(fillerText string, items []types.Todo) templ.Component {
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(fillerText)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 146, Col: 45}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `pages/templates/root.templ`, Line: 150, Col: 45}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {

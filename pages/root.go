@@ -14,5 +14,5 @@ func RootPage(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    templates.RootPage(username).Render(r.Context(), w)
+    templates.RootPage(username, false).Render(r.Context(), w)
 }

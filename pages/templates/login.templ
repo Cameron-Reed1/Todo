@@ -1,6 +1,6 @@
 package templates
 
-templ loginSkeleton() {
+templ loginSkeleton(basic_css bool) {
     <!Doctype HTML>
     <html lang="en-US">
     <head>
@@ -8,7 +8,11 @@ templ loginSkeleton() {
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <link rel="stylesheet" href="/css/login.css"/>
+        if basic_css {
+            <link rel="stylesheet" href="/css/login_basic.css"/>
+        } else {
+            <link rel="stylesheet" href="/css/login.css"/>
+        }
 
         <script src="/js/login.js"></script>
         <script src="/js/lib/htmx.min.js"></script>
@@ -20,32 +24,34 @@ templ loginSkeleton() {
     </html>
 }
 
-templ LoginPage() {
-    @loginSkeleton() {
+templ LoginPage(basic_css bool) {
+    @loginSkeleton(basic_css) {
         <form id="login-box" hx-post="/login" hx-swap="none">
-            <h1>Login</h1>
+            <h1>Welcome</h1>
 
-            <div>
-                <label for="username">Username</label><br/>
-                <input id="username" name="username" type="text" required/>
+            <div class="credentials-wrapper">
+                <label for="username">Username</label>
+                <input id="username" class="credentials" name="username" type="text" placeholder="Username" required/>
 
-                <div style="margin: 20px"></div>
+                <div class="gap"></div>
 
-                <label for="password">Password</label><br/>
-                <input id="password" name="password" type="password" required/>
+                <label for="password">Password</label>
+                <input id="password" class="credentials" name="password" type="password" placeholder="Password" required/>
 
-                <label for="stay-logged-in">Keep me logged in</label>
-                <input id="stay-logged-in" name="stay-logged-in" type="checkbox"/><br/>
+                <div>
+                    <label class="normal-text" for="stay-logged-in">Keep me logged in</label>
+                    <input id="stay-logged-in" name="stay-logged-in" type="checkbox"/>
+                </div>
 
-                <button type="submit">Log in</button>
-                <a href="/create-account">Create Account</a>
+                <button type="submit" class="login-btn">Log in</button>
+                <a href="/create-account">No Account? Create one!</a>
             </div>
         </form>
     }
 }
 
-templ CreateAccountBox() {
-    @loginSkeleton() {
+templ CreateAccountBox(basic_css bool) {
+    @loginSkeleton(basic_css) {
         <form id="login-box" hx-post="/create-account">
             <h1>Create Account</h1>
 

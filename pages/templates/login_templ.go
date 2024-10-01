@@ -8,7 +8,7 @@ package templates
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func loginSkeleton() templ.Component {
+func loginSkeleton(basic_css bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -26,7 +26,22 @@ func loginSkeleton() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype HTML><html lang=\"en-US\"><head><title>Todo login</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"/css/login.css\"><script src=\"/js/login.js\"></script><script src=\"/js/lib/htmx.min.js\"></script></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype HTML><html lang=\"en-US\"><head><title>Todo login</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if basic_css {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/css/login_basic.css\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/css/login.css\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"/js/login.js\"></script><script src=\"/js/lib/htmx.min.js\"></script></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -42,7 +57,7 @@ func loginSkeleton() templ.Component {
 	})
 }
 
-func LoginPage() templ.Component {
+func LoginPage(basic_css bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -72,13 +87,13 @@ func LoginPage() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form id=\"login-box\" hx-post=\"/login\" hx-swap=\"none\"><h1>Login</h1><div><label for=\"username\">Username</label><br><input id=\"username\" name=\"username\" type=\"text\" required><div style=\"margin: 20px\"></div><label for=\"password\">Password</label><br><input id=\"password\" name=\"password\" type=\"password\" required> <label for=\"stay-logged-in\">Keep me logged in</label> <input id=\"stay-logged-in\" name=\"stay-logged-in\" type=\"checkbox\"><br><button type=\"submit\">Log in</button> <a href=\"/create-account\">Create Account</a></div></form>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form id=\"login-box\" hx-post=\"/login\" hx-swap=\"none\"><h1>Welcome</h1><div class=\"credentials-wrapper\"><label for=\"username\">Username</label> <input id=\"username\" class=\"credentials\" name=\"username\" type=\"text\" placeholder=\"Username\" required><div class=\"gap\"></div><label for=\"password\">Password</label> <input id=\"password\" class=\"credentials\" name=\"password\" type=\"password\" placeholder=\"Password\" required><div><label class=\"normal-text\" for=\"stay-logged-in\">Keep me logged in</label> <input id=\"stay-logged-in\" name=\"stay-logged-in\" type=\"checkbox\"></div><button type=\"submit\" class=\"login-btn\">Log in</button> <a href=\"/create-account\">No Account? Create one!</a></div></form>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = loginSkeleton().Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = loginSkeleton(basic_css).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -86,7 +101,7 @@ func LoginPage() templ.Component {
 	})
 }
 
-func CreateAccountBox() templ.Component {
+func CreateAccountBox(basic_css bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -122,7 +137,7 @@ func CreateAccountBox() templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = loginSkeleton().Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = loginSkeleton(basic_css).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
