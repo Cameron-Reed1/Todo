@@ -55,21 +55,21 @@ templ CreateAccountBox(basic_css bool) {
         <form id="login-box" hx-post="/create-account">
             <h1>Create Account</h1>
 
-            <div>
-                <label for="username">Username</label><br/>
-                <input id="username" name="username" type="text" required/>
+            <div class="credentials-wrapper">
+                <label for="username">Username</label>
+                <input id="username" class="credentials" name="username" type="text" placeholder="Username" required/>
 
-                <div style="margin: 20px"></div>
+                <div class="gap"></div>
 
-                <label for="password">Password</label><br/>
-                <input id="password" name="password" type="password" required/>
+                <label for="password">Password</label>
+                <input id="password" class="credentials" name="password" type="password" placeholder="Password" required/>
 
-                <div style="margin: 20px"></div>
+                <div class="gap"></div>
 
-                <label for="confirm-password">Confirm Password</label><br/>
-                <input id="confirm-password" name="confirm-password" type="password" required/>
+                <label for="confirm-password">Confirm Password</label>
+                <input id="confirm-password" class="credentials" name="confirm-password" type="password" placeholder="Re-Type Password" required/>
 
-                <button type="submit">Create account</button>
+                <button type="submit" class="login-btn">Create account</button>
             </div>
         </form>
     }

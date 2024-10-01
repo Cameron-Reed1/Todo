@@ -131,7 +131,7 @@ func CreateAccountBox(basic_css bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form id=\"login-box\" hx-post=\"/create-account\"><h1>Create Account</h1><div><label for=\"username\">Username</label><br><input id=\"username\" name=\"username\" type=\"text\" required><div style=\"margin: 20px\"></div><label for=\"password\">Password</label><br><input id=\"password\" name=\"password\" type=\"password\" required><div style=\"margin: 20px\"></div><label for=\"confirm-password\">Confirm Password</label><br><input id=\"confirm-password\" name=\"confirm-password\" type=\"password\" required> <button type=\"submit\">Create account</button></div></form>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form id=\"login-box\" hx-post=\"/create-account\"><h1>Create Account</h1><div class=\"credentials-wrapper\"><label for=\"username\">Username</label> <input id=\"username\" class=\"credentials\" name=\"username\" type=\"text\" placeholder=\"Username\" required><div class=\"gap\"></div><label for=\"password\">Password</label> <input id=\"password\" class=\"credentials\" name=\"password\" type=\"password\" placeholder=\"Password\" required><div class=\"gap\"></div><label for=\"confirm-password\">Confirm Password</label> <input id=\"confirm-password\" class=\"credentials\" name=\"confirm-password\" type=\"password\" placeholder=\"Re-Type Password\" required> <button type=\"submit\" class=\"login-btn\">Create account</button></div></form>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

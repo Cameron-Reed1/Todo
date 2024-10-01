@@ -53,7 +53,7 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
             w.Header().Add("Location", "/")
             w.WriteHeader(http.StatusSeeOther)
         } else {
-            templates.CreateAccountBox(false).Render(r.Context(), w)
+            templates.CreateAccountBox(r.URL.Query().Has("basic")).Render(r.Context(), w)
         }
         return
     }
