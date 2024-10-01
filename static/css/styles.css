@@ -180,16 +180,16 @@ nav {
 }
 
 form {
-	position: absolute;
-	left: 50%;
-	top: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
-	border: 2px solid black;
-	border-radius: 10px;
-	width: min(calc(100vw - 110px), 900px);
-	height: min(calc(100lvh - 250px), 440px);
-	background: white;
-	box-shadow: black 5px 5px 5px -3px;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: min(calc(100vw - 110px), 900px);
+    height: min(calc(100lvh - 250px), 440px);
+    background: white;
+    box-shadow: black 5px 5px 5px -3px;
     visibility: hidden;
     opacity: 0;
     transition: visibility 1s, top .5s, opacity .5s linear;
@@ -199,7 +199,7 @@ form {
 }
 
 form:target {
-	top: 48%;
+    top: 48%;
     visibility: visible;
     opacity: 1;
     transition: visibility 0s, top .5s, opacity .5s linear;

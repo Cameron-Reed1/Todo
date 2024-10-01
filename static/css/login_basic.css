@@ -37,16 +37,16 @@ input::placeholder {
 }
 
 button {
-	padding: 10px 20px;
-	text-decoration: none;
-	border: 2px solid;
-	border-radius: 6px;
-	box-shadow: black 2px 2px 3px 0;
-	background-color: white;
-	font-size: 1rem;
-	cursor: pointer;
-	margin: 35px 0 25px 0;
-	color: blue;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid;
+    border-radius: 6px;
+    box-shadow: black 2px 2px 3px 0;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 35px 0 25px 0;
+    color: blue;
 }
 
 a {

@@ -52,16 +52,16 @@ p, a, .normal-text {
     border-radius: 10px;
     margin: 20px;
     background-color: #27272750;
-      color: white;
+    color: white;
 }
 
 .login-btn {
-	padding: 10px 20px;
-	text-decoration: none;
-	border-radius: 6px;
-	font-size: 1rem;
-	cursor: pointer;
-	margin: 35px 0 25px 0;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 35px 0 25px 0;
 
     background-color: green;
     color: white;
