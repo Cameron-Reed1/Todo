@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"path"
 
 	"github.com/Cameron-Reed1/todo-web/api"
 	"github.com/Cameron-Reed1/todo-web/db"
@@ -56,6 +57,7 @@ func addFrontendEndpoints(mux *http.ServeMux, static_path string) {
     mux.HandleFunc("/upcoming", pages.UpcomingFragment)
     mux.HandleFunc("/login", pages.Login)
     mux.HandleFunc("/create-account", pages.CreateAccount)
+    // mux.HandleFunc("/account", pages.AccountPage)
     mux.HandleFunc("POST /logout", pages.Logout)
     mux.HandleFunc("DELETE /delete/{id}", pages.DeleteItem)
     mux.HandleFunc("PATCH /set/{id}", pages.SetItemCompleted)
@@ -65,6 +67,8 @@ func addFrontendEndpoints(mux *http.ServeMux, static_path string) {
     fileServer := http.FileServer(http.Dir(static_path))
     mux.Handle("/css/", fileServer)
     mux.Handle("/js/", fileServer)
+    mux.Handle("/img/", fileServer)
+    mux.HandleFunc("/img/login.jpg", func(w http.ResponseWriter, r *http.Request) { pages.RandomImage(w, r, path.Join(static_path, "img/login/")) })
 }
 
 func addBackendEndpoints(mux *http.ServeMux) {
