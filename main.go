@@ -69,6 +69,7 @@ func addFrontendEndpoints(mux *http.ServeMux, static_path string) {
     mux.Handle("/js/", fileServer)
     mux.Handle("/img/", fileServer)
     mux.HandleFunc("/img/login.jpg", func(w http.ResponseWriter, r *http.Request) { pages.RandomImage(w, r, path.Join(static_path, "img/login/")) })
+    mux.HandleFunc("/img/login/", Error404)
 }
 
 func addBackendEndpoints(mux *http.ServeMux) {
